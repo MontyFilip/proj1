@@ -66,8 +66,8 @@ class AddNewCommand(MenuCommand):
             os.system('cls')
             print("Wydarzenie zostało dodane")
             sleep_soft(.5)
-    # wyjątek w przypadku błędnych danch
-    # reaguje na tytuł, datę i godzinę 
+        # wyjątek w przypadku błędnych danch
+        # reaguje na tytuł, datę i godzinę 
         except Exception as e:
             print("\nInvalid Input")
             # print(e)
