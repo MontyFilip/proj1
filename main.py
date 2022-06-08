@@ -3,6 +3,7 @@ from menu import *
 
 def main():
     calendar = Calendar()
+    # słownik zawirający wywołania odpowiednich klas i metod
     commands = {
         1: AddNewCommand(calendar),
         2: ListCommand(calendar),
@@ -11,6 +12,7 @@ def main():
     }
 
     while True:
+    # treść menu
         print("""
     1. Dodaj wydarzenie
     2. Wypisz wydarzenia
@@ -18,7 +20,7 @@ def main():
     4. Zamknij program
         """)
 
-# poranie wybory od użytkownika
+# pobranie wyboru od użytkownika wraz ze sprawdzeniem poprawności
         try:
             selected = int(input("Select menu item 1-4: "))
             commands[selected].execute()
