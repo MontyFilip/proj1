@@ -4,8 +4,6 @@ import menu
 
 
 def menu_list():
-
-    # brak spacji po przecinku
     menu_string = {
         1: 'Dodaj wydarzenie',
         2: 'Wypisz wydarzenia',

@@ -45,10 +45,8 @@ class AddNewCommand(MenuCommand):
         self.calendar = calendar
 
     def execute(self):
-        # tutaj while do poprawy - na kazdym inpucie ze sprawdzeniem
         try:
             pattern = '^[a-zA-Z0-9\-\,\.\s]+$'
-            # if not re.compile(pattern).match(title):
             title = input("\nPodaj tytuł wydarzenia: ")
         #  ^ pocz zdania,  [przedział z jakiego znaki  mogą się znajdować]
         # + dowolna ilosć powtórzeń (sprawdzenie każdego kolejnego znkau) $ - koniec linii
@@ -57,10 +55,10 @@ class AddNewCommand(MenuCommand):
                 raise Exception("title not match")
             self.calendar.add_event(
                 Event(title=title,
-                      # convert na obj datetime.date
+                      # pobranie wartości od użytkownika i convert na obj datetime.date
                       date=datetime.datetime.strptime(
                           input('Podaj datę wydarzenia(DD.MM.YYYY): '), '%d.%m.%Y').date(),
-                      #  convert na obj datetime.time
+                      # pobranie wartości od użytkownika i convert na obj datetime.time
                       time=datetime.datetime.strptime(
                           input('Podaj godzinę wydarzenia(HH:MM): '), '%H:%M').time()
                       )
