@@ -1,9 +1,9 @@
 from callendar import SimpleListingStrategy, ICalListingStrategy, list_calendar
 from dataclasses import dataclass
-from abc import ABC
+from abc import ABC, abstractmethod
 import datetime
 from time import sleep as sleep_soft
-import re 
+import re
 
 
 class Calendar:
@@ -14,6 +14,8 @@ class Calendar:
         self.events.append(event)
 
 # klasa formatująca parametry obiektu
+
+
 @dataclass
 class Event:
     title: str
@@ -22,6 +24,7 @@ class Event:
 
 
 class MenuCommand(ABC):
+    @abstractmethod
     def execute(self):
         pass
 
@@ -38,8 +41,6 @@ class ExitCommand(MenuCommand):
 
 
 class AddNewCommand(MenuCommand):
-    #adnotacja co to jest calendar
-    #calendar = calendar, co to za typ?
     def __init__(self, calendar) -> None:
         self.calendar = calendar
 
@@ -52,7 +53,7 @@ class AddNewCommand(MenuCommand):
         #  ^ pocz zdania,  [przedział z jakiego znaki  mogą się znajdować]
         # + dowolna ilosć powtórzeń (sprawdzenie każdego kolejnego znkau) $ - koniec linii
             if not re.compile(pattern).match(title):
-                    #invalid characters
+                # invalid characters
                 raise Exception("title not match")
             self.calendar.add_event(
                 Event(title=title,
@@ -68,7 +69,7 @@ class AddNewCommand(MenuCommand):
             print("\nWydarzenie zostało dodane\n")
             sleep_soft(.5)
         # wyjątek w przypadku błędnych danch
-        # reaguje na tytuł, datę i godzinę 
+        # reaguje na tytuł, datę i godzinę
         except Exception as e:
             print("\nInvalid Input\n")
             # print(e)

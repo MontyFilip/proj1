@@ -1,14 +1,16 @@
-import menu 
+import menu
 
-    #zla nazwa funkcji - wbudowana funkcja - przyslania list
+# zla nazwa funkcji - wbudowana funkcja - przyslania list
+
+
 def menu_list():
-    
-    #brak spacji po przecinku
-    menu_string ={
-    1: 'Dodaj wydarzenie',
-    2: 'Wypisz wydarzenia',
-    3: 'Wypisz wydarzena w formacie iCalendar',
-    4: 'Zamknij program'
+
+    # brak spacji po przecinku
+    menu_string = {
+        1: 'Dodaj wydarzenie',
+        2: 'Wypisz wydarzenia',
+        3: 'Wypisz wydarzena w formacie iCalendar',
+        4: 'Zamknij program'
     }
     for i in menu_string:
         print(f'{i}. {menu_string[i]}')
@@ -24,7 +26,7 @@ def main():
         4: menu.ExitCommand()
     }
 
-    while True:            
+    while True:
         menu_list()
         # pobranie wyboru od użytkownika wraz ze sprawdzeniem poprawności
         try:
