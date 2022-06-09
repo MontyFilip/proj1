@@ -2,7 +2,6 @@ from callendar import SimpleListingStrategy, ICalListingStrategy, list_calendar
 from dataclasses import dataclass
 import datetime
 from time import sleep as sleep_soft
-import os
 import re 
 
 
@@ -38,38 +37,39 @@ class ExitCommand(MenuCommand):
 
 
 class AddNewCommand(MenuCommand):
-
+    #adnotacja co to jest calendar
+    #calendar = calendar, co to za typ?
     def __init__(self, calendar) -> None:
         self.calendar = calendar
 
     def execute(self):
-        # print("add")
+        # tutaj while do poprawy - na kazdym inpucie ze sprawdzeniem
         try:
-            tit = input("Podaj tytuł wydarzenia: ")
-            #  ^ pocz zdania [przedział z jakiego znaki  mogą się znajdować]
-            # + dowolna ilosć powtórzeń (sprawdzenie każdej kolejnej liczby) $ - koniec linii
-            tit_1 = re.compile("^[a-zA-Z0-9\-\,\.\s]+$")
-            test = tit_1.match(tit)
-            if not test:
+            pattern = '^[a-zA-Z0-9\-\,\.\s]+$'
+            # if not re.compile(pattern).match(title):
+            title = input("Podaj tytuł wydarzenia: ")
+        #  ^ pocz zdania,  [przedział z jakiego znaki  mogą się znajdować]
+        # + dowolna ilosć powtórzeń (sprawdzenie każdego kolejnego znkau) $ - koniec linii
+            if not re.compile(pattern).match(title):
+                    #invalid characters
                 raise Exception("title not match")
             self.calendar.add_event(
-                Event(title=tit,
+                Event(title=title,
                       # convert na obj datetime.date
                       date=datetime.datetime.strptime(
-                          input("Podaj datę wydarzenia(DD.MM.YYYY): "), "%d.%m.%Y").date(),
+                          input('Podaj datę wydarzenia(DD.MM.YYYY): '), '%d.%m.%Y').date(),
                       #  convert na obj datetime.time
                       time=datetime.datetime.strptime(
-                          input("Podaj godzinę wydarzenia(HH:MM): "), "%H:%M").time()
+                          input('Podaj godzinę wydarzenia(HH:MM): '), '%H:%M').time()
                       )
             )
-            # wyczyszczenie konsoli, komunikat o poprawnym dodaniu wydarzenia oraz uśpienie programu
-            os.system('cls')
-            print("Wydarzenie zostało dodane")
+            # komunikat o poprawnym dodaniu wydarzenia oraz uśpienie programu
+            print("\nWydarzenie zostało dodane\n")
             sleep_soft(.5)
         # wyjątek w przypadku błędnych danch
         # reaguje na tytuł, datę i godzinę 
         except Exception as e:
-            print("\nInvalid Input")
+            print("\nInvalid Input\n")
             # print(e)
 
 # wywołanie wypisania wydarzeń
