@@ -1,5 +1,5 @@
 # wypisanie danych
-from asyncio import events
+from abc import ABC
 
 
 text_entry = """
@@ -9,7 +9,7 @@ BEGIN:VTIMEZONE
 TZID:Europe/Warsaw
 X-LIC-LOCATION: Europe/Warsaw
 END:TIMEZONE"""
-text_end = """END:VCALENDAR"""
+text_end = "\nEND:VCALENDAR"
 
 
 
@@ -18,7 +18,7 @@ def list_calendar(strategy, events):
     print(formated_data)
 
 #abstractClass - https://docs.python.org/3/library/abc.html
-class ListingStrategy:
+class ListingStrategy(ABC):
     def format(self, calendar_data):
         pass
 
@@ -28,12 +28,12 @@ class ListingStrategy:
 class SimpleListingStrategy(ListingStrategy):
     def format(self, calendar_data):
         data = "".join([self.format_event(event) for event in calendar_data])
-        return "    --wydarzenia:-- {}".format(data)
+        return "    --wydarzenia:-- \n{}".format(data)
 
     def format_event(self, event):
         return"""
 Tytuł: {}
-Date: {}, {}""".format(event.title,
+Date: {}, {}\n""".format(event.title,
                        event.date.strftime('%d.%m.%Y'),
                        event.time.strftime('%H:%M'))
 
@@ -46,7 +46,7 @@ Date: {}, {}""".format(event.title,
 class ICalListingStrategy(ListingStrategy):
     def format(self, calendar_data):
         data = "".join([self.format_event(event) for event in calendar_data])
-        return "    --iCalendar format-- {}".format(data)
+        return "    --iCalendar format--\n {} {}{}\n".format(text_entry, data, text_end)
 
     def format_event(self, event):
         dt = "{}T{}00".format(
@@ -55,10 +55,9 @@ class ICalListingStrategy(ListingStrategy):
             # convert z obj time na string
             event.time.strftime("%H%M")
         )
-        return """{}
+        return """
 BEGIN:VEVENT
 DTSTART:{}
 DTEND:{}
 SUMMARY:{}
-END:VEVENT
-{}""".format(text_entry, dt, dt, event.title, text_end)
+END:VEVENT""".format(dt, dt, event.title)

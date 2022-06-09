@@ -1,5 +1,6 @@
 from callendar import SimpleListingStrategy, ICalListingStrategy, list_calendar
 from dataclasses import dataclass
+from abc import ABC
 import datetime
 from time import sleep as sleep_soft
 import re 
@@ -20,7 +21,7 @@ class Event:
     time: datetime.time
 
 
-class MenuCommand:
+class MenuCommand(ABC):
     def execute(self):
         pass
 
@@ -47,7 +48,7 @@ class AddNewCommand(MenuCommand):
         try:
             pattern = '^[a-zA-Z0-9\-\,\.\s]+$'
             # if not re.compile(pattern).match(title):
-            title = input("Podaj tytuł wydarzenia: ")
+            title = input("\nPodaj tytuł wydarzenia: ")
         #  ^ pocz zdania,  [przedział z jakiego znaki  mogą się znajdować]
         # + dowolna ilosć powtórzeń (sprawdzenie każdego kolejnego znkau) $ - koniec linii
             if not re.compile(pattern).match(title):

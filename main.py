@@ -28,7 +28,7 @@ def main():
         menu_list()
         # pobranie wyboru od użytkownika wraz ze sprawdzeniem poprawności
         try:
-            selected = int(input('Select menu item 1-4: '))
+            selected = int(input('\nSelect menu item 1-4: '))
             commands[selected].execute()
         except ValueError:
             print('Błędny wybór.')
